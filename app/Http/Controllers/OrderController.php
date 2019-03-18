@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderCreated;
+use Illuminate\Support\Facades\Mail;
 use App\Order;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -31,7 +34,14 @@ class OrderController extends Controller
             'email' => 'required|email',
             'product_id' => 'required'
         ]);
-        if (Order::create($validate)) {
+
+        $order = Order::create($validate);
+        $user = User::where('is_admin', '=', true)->first('email');
+        if ($order) {
+            Mail::to($user->email)->send(
+                new OrderCreated($order)
+            );
+
             return ["success" => "all good"];
         }
         return ["error" => "some error"];
