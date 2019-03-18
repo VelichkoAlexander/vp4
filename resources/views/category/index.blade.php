@@ -1,14 +1,14 @@
 @extends('layouts.app');
 
 
-@section('title',  'Последние товары')
+@section('title',  'Игры в разделе '. $category->name)
 
 
 @section('content')
 
     <div class="content-main__container">
         <div class="products-columns">
-            @foreach($lastProducts as $product)
+            @foreach($categoryProducts as $product)
                 <div class="products-columns__item">
                     <div class="products-columns__item__title-product">
                         <a href="{{route('product.show',['id'=>$product->id])}}"

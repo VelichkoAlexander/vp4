@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -12,10 +13,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
 
     /**
      * Show the application dashboard.
@@ -25,6 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('orders',compact('categories'));
+        $lastProducts = Product::orderBy('created_at','desc')->take(6)->get();
+        return view('main', compact('categories','lastProducts'));
     }
+
 }

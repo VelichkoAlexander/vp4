@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} — @yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -24,96 +24,16 @@
 </head>
 <body>
 <div class="main-wrapper">
-    <header class="main-header">
-        <div class="logotype-container">
-            <a href="{{ url('/') }}" class="logotype-link"><img src="img/logo.png" alt="Логотип"></a>
-        </div>
-        <nav class="main-navigation">
-            <ul class="nav-list">
-                <li class="nav-list__item"><a href="{{ url('/') }}" class="nav-list__item__link">Главная</a></li>
-                <li class="nav-list__item"><a href="#" class="nav-list__item__link">Мои заказы</a></li>
-                <li class="nav-list__item"><a href="#" class="nav-list__item__link">Новости</a></li>
-                <li class="nav-list__item"><a href="#" class="nav-list__item__link">О компании</a></li>
-            </ul>
-        </nav>
-        <div class="header-contact">
-            <div class="header-contact__phone"><a href="#" class="header-contact__phone-link">Телефон: 33-333-33</a>
-            </div>
-        </div>
-        <div class="header-container">
-            <div class="payment-container">
-                <div class="payment-basket__status">
-                    <div class="payment-basket__status__icon-block"><a
-                                class="payment-basket__status__icon-block__link"><i
-                                    class="fa fa-shopping-basket"></i></a></div>
-                    <div class="payment-basket__status__basket"><span
-                                class="payment-basket__status__basket-value">0</span><span
-                                class="payment-basket__status__basket-value-descr">товаров</span></div>
-                </div>
-            </div>
-            <div class="authorization-block">
-                <!-- Authentication Links -->
-                @guest
-                    <a class="authorization-block__link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    @if (Route::has('register'))
-                        <a class="authorization-block__link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    @endif
-                @else
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle authorization-block__link" href="#"
-                               role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-    document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                @endguest
-            </div>
-        </div>
-    </header>
+    @include('layouts.header')
     <div class="middle">
         <div class="sidebar">
-            <div class="sidebar-item">
-                <div class="sidebar-item__title">Категории</div>
-                <div class="sidebar-item__content">
-                    <ul class="sidebar-category">
-                        <li class="sidebar-category__item"><a href="#"
-                                                              class="sidebar-category__item__link">Action</a>
-                        </li>
-                        <li class="sidebar-category__item"><a href="#" class="sidebar-category__item__link">RPG</a>
-                        </li>
-                        <li class="sidebar-category__item"><a href="#"
-                                                              class="sidebar-category__item__link">Квесты</a>
-                        </li>
-                        <li class="sidebar-category__item"><a href="#"
-                                                              class="sidebar-category__item__link">Онлайн-игры</a>
-                        </li>
-                        <li class="sidebar-category__item"><a href="#"
-                                                              class="sidebar-category__item__link">Стратегии</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            @include('layouts.category-menu')
             <div class="sidebar-item">
                 <div class="sidebar-item__title">Последние новости</div>
                 <div class="sidebar-item__content">
                     <div class="sidebar-news">
                         <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="img/cover/game-2.jpg"
+                            <div class="sidebar-news__item__preview-news"><img src="{{ url('/') }}/img/cover/game-2.jpg"
                                                                                alt="image-new"
                                                                                class="sidebar-new__item__preview-new__image">
                             </div>
@@ -122,7 +42,7 @@
                                     новых играх в режиме VR</a></div>
                         </div>
                         <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="img/cover/game-1.jpg"
+                            <div class="sidebar-news__item__preview-news"><img src="{{ url('/') }}/img/cover/game-1.jpg"
                                                                                alt="image-new"
                                                                                class="sidebar-new__item__preview-new__image">
                             </div>
@@ -131,7 +51,7 @@
                                     новых играх в режиме VR</a></div>
                         </div>
                         <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="img/cover/game-4.jpg"
+                            <div class="sidebar-news__item__preview-news"><img src="{{ url('/') }}/img/cover/game-4.jpg"
                                                                                alt="image-new"
                                                                                class="sidebar-new__item__preview-new__image">
                             </div>
@@ -149,7 +69,7 @@
                     диск,
                     скачать Steam игры после оплаты
                 </div>
-                <div class="slider"><img src="img/slider.png" alt="Image" class="image-main"></div>
+                <div class="slider"><img src="{{ url('/') }}/img/slider.png" alt="Image" class="image-main"></div>
             </div>
             <div class="content-middle">
                 <div class="content-head__container">
@@ -181,7 +101,7 @@
                                 Witcher 3: Wild Hunt</a></div>
                         <div class="item-product__thumbnail"><a href="#"
                                                                 class="item-product__thumbnail__link"><img
-                                        src="img/cover/game-1.jpg" alt="Preview-image"
+                                        src="{{ url('/') }}/img/cover/game-1.jpg" alt="Preview-image"
                                         class="item-product__thumbnail__link__img"></a></div>
                         <div class="item-product__description">
                             <div class="item-product__description__products-price"><span
@@ -218,6 +138,5 @@
         </div>
     </footer>
 </div>
-<script src="js/main.js"></script>
 </body>
 </html>
