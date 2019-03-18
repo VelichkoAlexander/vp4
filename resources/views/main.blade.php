@@ -25,7 +25,8 @@
                     </div>
                     <div class="products-columns__item__description">
                         <span class="products-price">{{$product->price}} руб</span>
-                        <a href="#" class="btn btn-blue">Купить</a>
+                        <a data-fancybox="" data-src="#orderModal" data-modal="true" href="javascript:;"
+                           class="btn btn-blue">Купить</a>
                     </div>
                 </div>
             @endforeach

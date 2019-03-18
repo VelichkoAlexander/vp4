@@ -21,6 +21,7 @@
     <link href="{{ asset('css/main.css')}}" rel="stylesheet">
     <link href="{{ asset('css/media.css')}}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="main-wrapper">
@@ -138,5 +139,21 @@
         </div>
     </footer>
 </div>
+<div id="orderModal" class="p-5 fancybox-content" style="display: inline-block; max-width: 600px;">
+    <h2>
+        I'm a modal!
+    </h2>
+    <p>
+        You can close me only by pressing custom button below.
+    </p>
+    <p>
+        It would also be possible to prevent closing using <code>beforeClose</code> callback.
+    </p>
+    <p>
+        <button data-fancybox-close="" class="btn btn-primary">Close me</button>
+    </p>
+</div>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 </body>
 </html>
