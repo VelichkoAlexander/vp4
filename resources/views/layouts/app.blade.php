@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }} — @yield('title')</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
 {{--<link rel="dns-prefetch" href="//fonts.gstatic.com">--}}
@@ -139,21 +139,49 @@
         </div>
     </footer>
 </div>
-<div id="orderModal" class="p-5 fancybox-content" style="display: inline-block; max-width: 600px;">
-    <h2>
-        I'm a modal!
+<div id="orderModal" class="p-5 fancybox-content" style="display: none; max-width: 600px;">
+    <h2 class="text-center">
+        Make Order!
     </h2>
-    <p>
-        You can close me only by pressing custom button below.
-    </p>
-    <p>
-        It would also be possible to prevent closing using <code>beforeClose</code> callback.
-    </p>
-    <p>
-        <button data-fancybox-close="" class="btn btn-primary">Close me</button>
-    </p>
+    <form method="POST" action="/orders" class="js-order-form">
+        @csrf
+        <input type="hidden" name="product_id" class="js-productId" value="1">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input name="name" type="text" class="form-control" id="name" placeholder="Enter Name"
+                   @guest
+                   value=""
+                   @else
+                   value="{{Auth::getUser()->name}}"
+                    @endguest
+            >
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Enter email"
+                   @guest
+                   value=""
+                   @else
+                   value="{{Auth::getUser()->email}}"
+                    @endguest
+            >
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-sm-6">
+                <button data-fancybox-close="" class="btn btn-info">Close</button>
+            </div>
+        </div>
+    </form>
 </div>
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="{{asset('/js/ajax.js')}}"></script>
+
 </body>
 </html>

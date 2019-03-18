@@ -7,6 +7,9 @@ use Carbon\Carbon;
 
 class Order extends Model
 {
+
+    protected $fillable = ['name', 'email', 'product_id'];
+
     public function products()
     {
         return $this->hasMany(Product::class);

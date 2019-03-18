@@ -12,10 +12,13 @@
 */
 
 Route::get('/', 'HomeController@index')->name('orders');
-
+Route::post('/orders', 'OrderController@store');
 
 Auth::routes();
 
 Route::get('/orders', 'OrderController@index')->name('orders');
 Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
+
+
+
