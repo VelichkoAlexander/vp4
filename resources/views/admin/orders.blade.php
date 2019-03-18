@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Мои заказы')
+@section('title', 'Админ заказы')
 
 @section('content')
     <div class="content-main__container">
@@ -8,7 +8,8 @@
             @forelse($orders as $product)
                 <div class="cart-product-list__item">
                     <div class="cart-product__item__product-photo">
-                        <img src="img/cover/{{$product->image}}" class="cart-product__item__product-photo__image">
+                        <img src="{{asset('/img/cover/'.$product->image)}}"
+                             class="cart-product__item__product-photo__image">
                     </div>
                     <div class="cart-product__item__product-name">
                         <div class="cart-product__item__product-name__content">
@@ -21,8 +22,9 @@
                     <div class="cart-product__item__product-price">
                         <span class="product-price__value">{{$product->price}} рублей</span>
                     </div>
-                    <div class="cart-product__item__product-price">
-                        <span class="product-price__value">{{$product->price}} рублей</span>
+                    <div>
+                        <div class="product-price__value">{{$product->name}}</div>
+                        <div class="product-price__value">{{$product->email}}</div>
                     </div>
                 </div>
             @empty

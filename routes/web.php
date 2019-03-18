@@ -19,6 +19,9 @@ Auth::routes();
 Route::get('/orders', 'OrderController@index')->name('orders');
 Route::resource('product', 'ProductController');
 Route::resource('category', 'CategoryController');
+Route::get('/admin', 'AdminController@index');
+Route::get('/admin/category', 'AdminController@category');
+Route::get('/admin/order', 'AdminController@order');
 
 
 
