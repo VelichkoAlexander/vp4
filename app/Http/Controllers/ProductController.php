@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -26,7 +27,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+
+        return view('admin.product-crete', compact('categories'));
     }
 
     /**
@@ -37,7 +40,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validationData = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'desc' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        if ($request->file('image')) {
+            $filename = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('img/cover'), $filename);
+            $validationData['image'] = $filename;
+        }
+
+        Product::create($validationData);
+
+
+        return redirect('/admin/product');
     }
 
     /**
@@ -60,7 +79,19 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::all();
+        $product = Product::select(
+            'products.id',
+            'products.name',
+            'products.price',
+            'products.image',
+            'products.desc',
+            'products.category_id',
+            'categories.name as catName',
+            'categories.desc as catdesc'
+        )->join('categories', 'products.category_id', '=', 'categories.id')->where('products.id', $id)->get();
+        $product = $product[0];
+        return view('admin.product-edit', compact('product', 'categories'));
     }
 
     /**
@@ -70,9 +101,25 @@ class ProductController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $validationData = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'desc' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        if ($request->file('image')) {
+            $filename = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('img/cover'), $filename);
+            $validationData['image'] = $filename;
+        }
+
+        $product->update($validationData);
+
+
+        return redirect('/admin/product');
     }
 
     /**
@@ -81,8 +128,9 @@ class ProductController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect('/admin/product');
     }
 }

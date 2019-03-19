@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Order;
+use App\Product;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('admin.index');
@@ -24,5 +31,12 @@ class AdminController extends Controller
         $orders = Order::join('products', 'orders.product_id', '=', 'products.id')->get();
         return view('admin.orders', compact('orders'));
     }
+
+    public function product()
+    {
+        $products = Product::all();
+        return view('admin.product', compact('products'));
+    }
+
 
 }

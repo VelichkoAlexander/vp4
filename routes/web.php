@@ -22,6 +22,7 @@ Route::resource('category', 'CategoryController');
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/category', 'AdminController@category');
 Route::get('/admin/order', 'AdminController@order');
+Route::get('/admin/product', 'AdminController@product');
 
 
 
