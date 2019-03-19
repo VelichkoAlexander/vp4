@@ -6,6 +6,7 @@ use App\Category;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -36,6 +37,14 @@ class AdminController extends Controller
     {
         $products = Product::all();
         return view('admin.product', compact('products'));
+    }
+
+    public function email()
+    {
+        if (Auth::check()) {
+            $user = Auth::getUser();
+        }
+        return view('admin.email-edit', compact('user'));
     }
 
 

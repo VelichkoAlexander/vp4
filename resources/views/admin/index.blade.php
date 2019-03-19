@@ -8,6 +8,7 @@
                 <a href="/admin/orders" class="btn btn-info">Orders</a>
                 <a href="/admin/category" class="btn btn-info">Categories</a>
                 <a href="/admin/product" class="btn btn-info">Products</a>
+                <a href="/admin/email" class="btn btn-info">Change email</a>
             </div>
     </div>
 @endsection

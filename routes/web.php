@@ -23,6 +23,8 @@ Route::get('/admin', 'AdminController@index');
 Route::get('/admin/category', 'AdminController@category');
 Route::get('/admin/order', 'AdminController@order');
 Route::get('/admin/product', 'AdminController@product');
+Route::get('/admin/email', 'AdminController@email');
+Route::patch('/user/{user}', 'UserController@update');
 
 
 
